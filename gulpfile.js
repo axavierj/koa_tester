@@ -1,16 +1,21 @@
-const gulp = require("gulp");
-const nodemon = require("gulp-nodemon");
-const livereload = require("gulp-livereload");
+import gulp from "gulp";
+import nodemon from "gulp-nodemon";
+import livereload from "gulp-livereload";
 
 gulp.task("start", () => {
   livereload.listen();
   nodemon({
-    script: "index.js",
+    script: "server.js",
     ext: "js html css",
     ignore: ["node_modules/**", "client/**"],
   }).on("restart", () => {
-    gulp.src("index.js").pipe(livereload());
+    gulp.src("server.js").pipe(livereload());
   });
 });
 
-gulp.task("default", ["start"]);
+gulp.task("watch", () => {
+  livereload.listen();
+  gulp.watch("public/**/*").on("change", livereload.changed());
+});
+
+gulp.task("default", gulp.series("start", "watch"));
