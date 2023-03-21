@@ -1,20 +1,19 @@
 import Koa from "koa";
-import send from "koa-send";
+import bodyParser from "koa-bodyparser";
 import koaStatic from "koa-static";
+import cors from "@koa/cors";
+import authRouter from "./routes/auth.mjs";
 import baseRouter from "./routes/basic.mjs";
 
 const app = new Koa();
 
 app.use(koaStatic("public"));
-
-app.use(async (ctx, next) => {
-  if (ctx.path.startsWith("/api/")) {
-    return next();
-  }
-  await send(ctx, "client/index.html");
-});
+app.use(bodyParser());
+app.use(cors());
 
 app.use(baseRouter.routes());
+app.use(authRouter.routes());
+app.use(authRouter.allowedMethods());
 app.use(baseRouter.allowedMethods());
 
 app.listen(3000, () => {

@@ -6,21 +6,20 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "gulp"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "@prisma/client": "^4.11.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
     "koa": "^2.14.1",
+    "koa-bodyparser": "^4.4.0",
     "koa-router": "^12.0.0",
     "koa-send": "^5.0.1",
-    "koa-static": "^5.0.0",
-    "pages": "^0.0.16"
-  },
-  "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-livereload": "^4.0.2",
-    "gulp-nodemon": "^2.5.0"
+    "koa-static": "^5.0.0"
   }
 }
